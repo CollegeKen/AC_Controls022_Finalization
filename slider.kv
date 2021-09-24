@@ -1,0 +1,597 @@
+#:kivy 1.10.1
+
+<Slider2>:
+    padding: 10
+    canvas:
+        Color:
+            rgb: 1, 0, 0.15 #color for above top cursor
+        BorderImage:
+            border: self.border_horizontal if self.orientation == 'horizontal' else self.border_vertical
+            pos: (self.x + self.padding, self.center_y - self.background_width / 2) if self.orientation == 'horizontal' else (self.center_x - self.background_width / 2, self.y + self.padding)
+            size: (self.width - self.padding * 2, self.background_width) if self.orientation == 'horizontal' else (self.background_width, self.height - self.padding * 2)
+            source: (self.background_disabled_horizontal if self.orientation == 'horizontal' else self.background_disabled_vertical) if self.disabled else (self.background_horizontal if self.orientation == 'horizontal' else self.background_vertical)
+        Color: #color for line underneath top cursor
+            rgba: 1, 1, 1, 0.75
+        Line: #line under top cursor
+            width: self.value_track_width
+            points: self.center_x, self.y + self.padding, self.center_x, self.value2_pos[1]
+        Color: #color for line underneath top cursor and above bottom cursor
+            rgb: 0, 0, 0.75
+        Line: #line under top cursor and above bottom cursor
+            width: self.value_track_width
+            points: self.center_x, self.y + self.padding, self.center_x, self.value1_pos[1]
+        Color:
+            rgb: 1, 1, 1 #color for cursors
+        Rectangle:
+            pos: (self.value1_pos[0] - 16, self.center_y - 16) if self.orientation == 'horizontal' else (self.center_x - 16, self.value1_pos[1] - 16)
+            size: (32, 32)
+            source: 'atlas://data/images/defaulttheme/slider_cursor'
+        Rectangle:
+            pos: (self.value2_pos[0] - 16, self.center_y - 16) if self.orientation == 'horizontal' else (self.center_x - 16, self.value2_pos[1] - 16)
+            size: (32, 32)
+            source: '/home/ken/PycharmProjects/AC_Controls019_Config_Setup/Pictures/slider_cursor_red.png'
+
+<ValveIndicator>
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            size: (32, 32)
+            pos: self.center_x, self.center_y
+            source: str(self.valve_state)
+
+<MainView>:
+
+    slider:slider1
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+        rows: 6
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            size_hint_y: slider1.horizontalHintRatio
+            Label:
+                text: 'Stage 1'
+            Label:
+                text: 'Stage 2'
+            Label:
+                text: 'Stage 3'
+            Label:
+                text: 'Stage 4'
+            Label:
+                text: 'Stage 5'
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 6
+            size_hint_y: slider1.horizontalHintRatio
+            ValveIndicator:
+                id: valve1
+                valve_state: str(app.vlv1_state)
+            ValveIndicator:
+                id: valve2
+                valve_state: str(app.vlv2_state)
+            ValveIndicator:
+                id: valve3
+                valve_state: str(app.vlv3_state)
+            ValveIndicator:
+                id: valve4
+                valve_state: str(app.vlv4_state)
+            ValveIndicator:
+                id: valve5
+                valve_state: str(app.vlv5_state)
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            size_hint_y: .8
+            BoxLayout:
+                orientation: 'horizontal'
+                cols: 2
+                Slider2:
+                    id:slider1
+                    min: 0
+                    max: 450
+                    value1: 10
+                    value2: 90
+                    height: slider1.sliderHeight
+                Image:
+                    source: '/home/ken/PycharmProjects/AC_Controls019_Config_Setup/Pictures/tickLine.png'
+                    size: self.texture_size
+            BoxLayout:
+                orientation: 'horizontal'
+                cols: 2
+                Slider2:
+                    id:slider2
+                    min: 0
+                    max: 450
+                    value1: 10
+                    value2: 90
+                    height: slider2.sliderHeight
+                Image:
+                    source: '/home/ken/PycharmProjects/AC_Controls019_Config_Setup/Pictures/tickLine.png'
+                    size: self.texture_size
+            BoxLayout:
+                orientation: 'horizontal'
+                cols: 2
+                Slider2:
+                    id:slider3
+                    min: 0
+                    max: 450
+                    value1: 10
+                    value2: 90
+                    height: slider3.sliderHeight
+                Image:
+                    source: '/home/ken/PycharmProjects/AC_Controls019_Config_Setup/Pictures/tickLine.png'
+                    size: self.texture_size
+            BoxLayout:
+                orientation: 'horizontal'
+                cols: 2
+                Slider2:
+                    id:slider4
+                    min: 0
+                    max: 450
+                    value1: 10
+                    value2: 90
+                    height: slider4.sliderHeight
+                Image:
+                    source: '/home/ken/PycharmProjects/AC_Controls019_Config_Setup/Pictures/tickLine.png'
+                    size: self.texture_size
+            BoxLayout:
+                orientation: 'horizontal'
+                cols: 2
+                Slider2:
+                    id:slider5
+                    min: 0
+                    max: 450
+                    value1: 10
+                    value2: 90
+                    height: slider5.sliderHeight
+                Image:
+                    source: '/home/ken/PycharmProjects/AC_Controls019_Config_Setup/Pictures/tickLine.png'
+                    size: self.texture_size
+                    canvas.before:
+                        Color:
+                            rgba: (0,0,1,1)
+                        Rectangle:
+                            pos: self.x+30, self.y
+                            size: self.width, self.height
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            size_hint_y: slider1.horizontalHintRatio
+            Label:
+                text: str(app.psv1)
+            Label:
+                text: str(app.psv2)
+            Label:
+                text: str(app.psv3)
+            Label:
+                text: str(app.psv4)
+            Label:
+                text: str(app.psv5)
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 3
+            size_hint_y: slider1.horizontalHintRatio
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Settings'
+                on_press:
+                    root.manager.current = 'Settings'
+                    root.manager.transition.direction = 'left'
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Outputs'
+                on_press:
+                    root.manager.current = 'Outputs'
+                    root.manager.transition.direction = 'left'
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Quit'
+                on_press: app.quit()
+
+<SettingsWindow>:
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 1
+        size: root.size
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 1
+            size_hint_y: 0.15
+            Label:
+                text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            size_hint_y: 0.3
+            padding: 10
+            Label:
+                text: 'Channel 1'
+                background_color: (0.25, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Channel 2'
+                background_color: (0.25, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Channel 3'
+                background_color: (0.25, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Channel 4'
+                background_color: (0.25, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Channel 5'
+                background_color: (0.25, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.5
+            Label:
+                text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 10
+            size_hint_y: 0.4
+            padding: 10
+            Label:
+                text: 'Zero'
+                background_color: (0.25, 0.25, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel1_zero
+                text: str(app.channel1_zero)
+                multiline: 'False'
+            Label:
+                text: 'Zero'
+                background_color: (0.25, 0.25, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel2_zero
+                text: str(app.channel2_zero)
+                multiline: 'False'
+            Label:
+                text: 'Zero'
+                background_color: (0.25, 0.25, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel3_zero
+                text: str(app.channel3_zero)
+                multiline: 'False'
+            Label:
+                text: 'Zero'
+                background_color: (0.25, 0.25, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel4_zero
+                text: str(app.channel4_zero)
+                multiline: 'False'
+            Label:
+                text: 'Zero'
+                background_color: (0.25, 0.25, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel5_zero
+                text: str(app.channel5_zero)
+                multiline: 'False'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.5
+            Label:
+                text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 10
+            size_hint_y: 0.4
+            padding: 10
+            Label:
+                text: 'Span'
+                background_color: (1, 0.25, 0.15, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel1_span
+                text: str(app.channel1_span)
+                multiline: 'False'
+            Label:
+                text: 'Span'
+                background_color: (1, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel2_span
+                text: str(app.channel2_span)
+                multiline: 'False'
+            Label:
+                text: 'Span'
+                background_color: (1, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel3_span
+                text: str(app.channel3_span)
+                multiline: 'False'
+            Label:
+                text: 'Span'
+                background_color: (1, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel4_span
+                text: str(app.channel4_span)
+                multiline: 'False'
+            Label:
+                text: 'Span'
+                background_color: (1, 0.25, 0.25, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: channel5_span
+                text: str(app.channel5_span)
+                multiline: 'False'
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 3
+            Label:
+                text: ''
+            Button:
+                size_hint_y: .4
+                size_hint_x: .4
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                text: 'Save Settings'
+                on_press:
+                    app.process()
+            Label:
+                text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 3
+            size_hint_y: 0.4
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Main'
+                on_press:
+                    root.manager.current = 'Main'
+                    root.manager.transition.direction = 'right'
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Outputs'
+                on_press:
+                    root.manager.current = 'Outputs'
+                    root.manager.transition.direction = 'left'
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Quit'
+                on_press: app.close()
+
+<OutputsWindow>
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 4
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.15
+            Label:
+                text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            Label:
+                text: 'Valve 1'
+                background_color: (0.25,0.25,.25,1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Valve 2'
+                background_color: (0.25,0.25,.25,1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Valve 3'
+                background_color: (0.25,0.25,.25,1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Valve 4'
+                background_color: (0.25,0.25,.25,1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                text: 'Valve 5'
+                background_color: (0.25,0.25,.25,1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 1
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            Button:
+                background_color: (0.25,1,0.25,1)
+                text: 'Auto'
+                on_press: app.Valve1_Auto()
+            Button:
+                background_color: (0.25,1,0.25,1)
+                text: 'Auto'
+                on_press: app.Valve2_Auto()
+            Button:
+                background_color: (0.25,1,0.25,1)
+                text: 'Auto'
+                on_press: app.Valve3_Auto()
+            Button:
+                background_color: (0.25,1,0.25,1)
+                text: 'Auto'
+                on_press: app.Valve4_Auto()
+            Button:
+                background_color: (0.25,1,0.25,1)
+                text: 'Auto'
+                on_press: app.Valve5_Auto()
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 1
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            Button:
+                background_color: (0.25,0.25,1,1)
+                text: 'Hand'
+                on_press: app.Valve1_Man()
+            Button:
+                background_color: (0.25,0.25,1,1)
+                text: 'Hand'
+                on_press: app.Valve2_Man()
+            Button:
+                background_color: (0.25,0.25,1,1)
+                text: 'Hand'
+                on_press: app.Valve3_Man()
+            Button:
+                background_color: (0.25,0.25,1,1)
+                text: 'Hand'
+                on_press: app.Valve4_Man()
+            Button:
+                background_color: (0.25,0.25,1,1)
+                text: 'Hand'
+                on_press: app.Valve5_Man()
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 1
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 5
+            Button:
+                background_color: (1,0.25,0.25,1)
+                text: 'Off'
+                on_press: app.Valve1_Off()
+            Button:
+                background_color: (1,0.25,0.25,1)
+                text: 'Off'
+                on_press: app.Valve2_Off()
+            Button:
+                background_color: (1,0.25,0.25,1)
+                text: 'Off'
+                on_press: app.Valve3_Off()
+            Button:
+                background_color: (1,0.25,0.25,1)
+                text: 'Off'
+                on_press: app.Valve4_Off()
+            Button:
+                background_color: (1,0.25,0.25,1)
+                text: 'Off'
+                on_press: app.Valve5_Off()
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            cols: 3
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Main'
+                on_press:
+                    root.manager.current = 'Main'
+                    root.manager.transition.direction = 'right'
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Channel Settings'
+                on_press:
+                    root.manager.current = 'Settings'
+                    root.manager.transition.direction = 'right'
+            Button:
+                background_color: (0.25,0.25,0.25,1)
+                text: 'Quit'
+                on_press: app.quit()
